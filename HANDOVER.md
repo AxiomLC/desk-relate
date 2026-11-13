@@ -1,7 +1,9 @@
 # HANDOVER — DeskRelate state & next-up
 
 > Drop this file into any new thread to resume. Last updated after v0
-> end-to-end build + smoke test (see git-less folder `C:\Users\Admin\Zed\desk-relate`).
+> build + smoke test + **repo created**.
+> Repo: https://github.com/AxiomLC/desk-relate (public, branch `master`).
+> Local: `C:\Users\Admin\Zed\desk-relate`.
 
 ## What this is
 
