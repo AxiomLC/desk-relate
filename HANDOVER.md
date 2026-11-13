@@ -62,29 +62,62 @@ For the real run use `knobs.json` (Documents/Downloads/Desktop).
   models (Ling-3.0-Tiny MoE, Qwen3.5-4B/9B, Nanbeige, MiniCPM) + the bake-off
   harness for picking `llm.qa_model`. Read before changing the model knob.
 
-## Next-up list (ordered)
+## Next-up: three tracks (Track A + B need NO LLM)
 
-1. **parser.py** — MarkItDown leg for binaries (PDF/DOCX/XLSX/PPTX/MSG) → MD
-   sidecars, then auto-feed scrubber. Fixtures already prove the binaries
-   stage (16 pdf + 16 docx + 8 xlsx + 8 pptx in spool) — they just don't
-   produce text sidecars yet (only 12 text files of 144 make the graph).
-   Files: new `app/parser.py`, hook into `main.py scan`.
-2. **Install Ollama** on this box + `ollama pull qwen3:4b nomic-embed-text`
-   (agent does not run global installs — hand user the command; user then
-   approves). After install, verify `qa_text()` catches a semantic MISS in
-   testdata (person name in a sentence) and embeddings fill `vectors: N`.
-3. **Vector search demo** — one hybrid query: vector top-K + traversal, one
-   Cypher statement, quoted in handover when done.
-4. **UI** — FastAPI on 127.0.0.1:8388; tabs per spec §5 (Dashboard/Spool/
-   Refusals/Redactions/Memory/Delta/Knobs). Use force-graph-3d later.
-5. **jailbreak_check.py** — spec §6; runs BEFORE first real ingest of
-   real user data; must print a 5-item report card.
-6. **Delta purge/rename flow** — recycle-bin check, `gone` → prompt-gated
-   purge (v0 only reports `gone`).
-7. ~~git init + first commit~~ — **DONE**: public repo `AxiomLC/desk-relate`
-   created via gh, committed and pushed (see README for clone/install).
-8. Then: OneDrive synced-folder scan config, GDrive connector, Gmail/IMAP
-   (optional), vault tier.
+### Track A — collector + scrubber expansion & testing (runs today)
+
+The collector and scrubber are the product's trust core and are far from done.
+Any thread can pick these up and test without Ollama:
+
+1. **Pattern expansion** — scrubber currently has 9 classes. Add + test:
+   street addresses, passport/driver-license formats, IBAN with checksum
+   validation, more API-key shapes (Azure, Google, JWT `eyJ…`), date-of-birth.
+   Each new pattern needs a **fixture pair** (should-redact doc + should-keep
+   doc) planted into `make_test_folders.py`.
+2. **Knob testing matrix** — knobs.json is the product surface; test each:
+   - every verdict (`keep/hide/block`) on every class
+   - `max_folder_depth` boundary (deep-tree fixture)
+   - `cloud_files: skip vs download` behavior
+   - `never_folders` mid-path denial (fixture branch named `node_modules`)
+   - malformed knobs (missing keys, wrong types) → must fail loud, not silent
+3. **Collector hardening** — long paths (>260 chars), unicode filenames,
+   locked files (open in Word), zero-byte files, huge-file cap (skip >100 MB?),
+   duplicate paths in `folders` (same dir listed twice), file renamed mid-scan.
+4. **Delta edge cases** — same-hash different path (copy), dir renamed
+   wholesale, file replaced while offline, ledger corruption (bad line).
+5. **Escape re-tests** — `..\..\` traversal in knobs entries, symlinked dirs
+   inside an allowed folder (must not escape it).
+
+### Track B — connectors (no LLM required)
+
+1. **parser.py** — MarkItDown leg: binary fixtures (pdf/docx/xlsx/pptx in
+   `spool/incoming/` already) → MD sidecars → straight into scrubber. Highest
+   value single module; enables ALL binary types in tests.
+2. **IMAP connector** (Hostinger + any provider) — stdlib `imaplib`; design:
+   metadata-first (fetch headers → consent per sender → bodies), creds via a
+   local file the user fills in, never committed. Mail is the richest source:
+   one email = person/thread/attachment nodes.
+3. **OneDrive non-synced leg** — Graph API delta (proven pattern in
+   optic-nerve-ui); needed only for files visible in Drive but not synced to
+   disk. Synced-folder path already works (add `%USERPROFILE%\OneDrive` to
+   `folders`).
+4. **GDrive** — `google-api-python-client` InstalledAppFlow OAuth; needs a
+   Google Cloud project (user's account, not committable).
+
+### Track C — LLM tier (blocked on Ollama install, lower priority)
+
+1. Install Ollama (user-run command, needs approval) + pull `qwen3:4b` and
+   `nomic-embed-text` — this machine or the second one.
+2. Verify `qa_text()` catches a semantic miss (person name in prose).
+3. Embeddings on → `vectors: N` → hybrid query demo.
+4. Model bake-off per `NOTES-local-llm-models.md` (Ling-3.0-Tiny vs qwen3:4b
+   on JSON validity + miss rate).
+
+### Later
+
+- UI (FastAPI localhost, spec §5) — better after Track A stabilizes knobs.
+- jailbreak_check.py (spec §6) — before first real-user ingest.
+- Delta purge/rename UI flow, vault tier, tree graph view.
 
 ## Gotchas (learn the hard way)
 
