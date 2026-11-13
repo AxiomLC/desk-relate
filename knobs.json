@@ -1,0 +1,42 @@
+{
+  "folders": [
+    "C:/Users/Admin/Zed/desk-relate/test_folders/my_documents",
+    "C:/Users/Admin/Zed/desk-relate/test_folders/c_user/Desktop",
+    "C:/Users/Admin/Zed/desk-relate/test_folders/c_user/Downloads",
+    "C:/Users/Admin/Zed/desk-relate/test_folders/c_user/Documents/Sub notes",
+    "C:/Users/Admin/Zed/desk-relate/test_folders/one_drive_sync-root",
+    "C:/Users/Admin/Zed/desk-relate/test_folders/one_drive_sync-root/nested business docs",
+    "C:/Users/Admin/Zed/desk-relate/test_folders/romantic_backup_ USB-thumb"
+  ],
+  "never_folders": ["node_modules", ".git", "__pycache__", "$Recycle.Bin"],
+  "file_types": [".md", ".txt", ".pdf", ".docx", ".xls", ".xlsx", ".csv", ".pptx", ".eml", ".msg", ".json", ".html"],
+  "file_types_never": [".env", ".pem", ".key", ".p12", ".ppk", ".pfx"],
+  "max_folder_depth": 8,
+  "cloud_files": "skip",
+  "spool_dir": "C:/Users/Admin/Zed/desk-relate/spool",
+  "graph_path": "C:/Users/Admin/Zed/desk-relate/out/personal.rl",
+  "out_dir": "C:/Users/Admin/Zed/desk-relate/out",
+  "llm": {
+    "base_url": "http://127.0.0.1:11434",
+    "qa_model": "qwen3:4b",
+    "embed_model": "nomic-embed-text",
+    "num_ctx": 8192,
+    "threads": 6,
+    "chunk_tokens": 2500,
+    "qa_enabled": true
+  },
+  "privacy_rules": {
+    "person_names": "hide",
+    "emails": "keep",
+    "phones": "hide",
+    "addresses": "hide",
+    "id_numbers": "block",
+    "credit_cards": "block",
+    "bank_details": "hide",
+    "api_keys": "block",
+    "passwords_and_tokens": "block",
+    "crypto_keys": "block"
+  },
+  "delta": { "full_audit_days": 7 },
+  "scan_schedule": "manual"
+}

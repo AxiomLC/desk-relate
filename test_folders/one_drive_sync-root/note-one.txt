@@ -1,0 +1,2 @@
+Plain text note.
+Address: 42 Example Lane, Springfield, IL 62704 (synthetic).

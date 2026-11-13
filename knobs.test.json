@@ -1,0 +1,61 @@
+{
+  "spool_dir": "C:/Users/Admin/Zed/desk-relate/spool",
+  "graph_path": "C:/Users/Admin/Zed/desk-relate/out/personal.rl",
+  "out_dir": "C:/Users/Admin/Zed/desk-relate/out",
+  "llm": {
+    "base_url": "http://127.0.0.1:11434",
+    "qa_model": "qwen3:4b",
+    "embed_model": "nomic-embed-text",
+    "num_ctx": 8192,
+    "threads": 6,
+    "chunk_tokens": 2500,
+    "qa_enabled": true
+  },
+  "delta": {
+    "full_audit_days": 7
+  },
+  "scan_schedule": "manual",
+  "folders": [
+    "C:/Users/Admin/Zed/desk-relate/testdata"
+  ],
+  "never_folders": [
+    "node_modules",
+    ".git",
+    "__pycache__"
+  ],
+  "file_types": [
+    ".md",
+    ".txt",
+    ".pdf",
+    ".docx",
+    ".xlsx",
+    ".csv",
+    ".pptx",
+    ".eml",
+    ".msg",
+    ".json",
+    ".html"
+  ],
+  "file_types_never": [
+    ".env",
+    ".pem",
+    ".key",
+    ".p12",
+    ".ppk",
+    ".pfx"
+  ],
+  "max_folder_depth": 8,
+  "cloud_files": "skip",
+  "privacy_rules": {
+    "person_names": "hide",
+    "emails": "keep",
+    "phones": "hide",
+    "addresses": "hide",
+    "id_numbers": "block",
+    "credit_cards": "block",
+    "bank_details": "hide",
+    "api_keys": "block",
+    "passwords_and_tokens": "block",
+    "crypto_keys": "block"
+  }
+}

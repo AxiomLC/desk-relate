@@ -1,0 +1,2 @@
+Setup instructions for router RE-3:
+thread count 6, num_ctx 8192.

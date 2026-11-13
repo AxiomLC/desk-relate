@@ -1,0 +1,4 @@
+markitdown[pdf,docx,xlsx,pptx,outlook]>=0.1.0
+blake3>=0.4
+watchdog>=4.0
+httpx>=0.27

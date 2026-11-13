@@ -1,0 +1,7 @@
+spool/
+out/
+.venv/
+__pycache__/
+*.pyc
+testdata/
+archive/
